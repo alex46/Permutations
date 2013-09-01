@@ -1,0 +1,53 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> permute(int[] num) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        
+        if(num==null) return res;
+        
+        if(num.length==0) {
+            res.add(new ArrayList<Integer>());
+            return res;
+        }
+        
+        
+        int first = num[0];
+        int[] sub = new int[num.length-1];
+        
+        for(int j = 0; j < num.length-1;j++){
+         sub[j] = num[j+1];   
+        }
+        
+        ArrayList<ArrayList<Integer>> a = permute(sub);
+        
+        for(int i = 0; i < a.size();i++){
+            ArrayList<Integer> b = a.get(i);
+            
+            for(int m = 0; m <=b.size();m++){
+                ArrayList<Integer> ans = insert(b,first,m);
+                res.add(ans);
+            }
+        }
+        
+        return res;
+        
+    }
+    
+    public static ArrayList<Integer> insert(ArrayList<Integer> b, int first, int m){
+        ArrayList<Integer> s = new ArrayList<Integer>();
+        
+        for(int i = 0; i < m; i++){
+            s.add(b.get(i));
+        }
+        
+        s.add(first);
+        
+        for(int k = m; k< b.size();k++){
+            s.add(b.get(k));
+        }
+        
+        return s;
+    }
+}
